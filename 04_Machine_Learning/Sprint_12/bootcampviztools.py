@@ -188,10 +188,10 @@ def plot_combined_graphs(df, columns, whisker_width=1.5, bins = None):
         plt.tight_layout()
         plt.show()
 
-def plot_grouped_boxplots(df, cat_col, num_col):
+def plot_grouped_boxplots(df, cat_col, num_col, group_size = 5):
     unique_cats = df[cat_col].unique()
     num_cats = len(unique_cats)
-    group_size = 5
+
 
     for i in range(0, num_cats, group_size):
         subset_cats = unique_cats[i:i+group_size]
@@ -315,4 +315,38 @@ def plot_multiple_boxplots(df, columns, dim_matriz_visual = 2):
 
     plt.tight_layout()
     plt.show()
+
+
+def scatter_plots_agrupados(df, col_categoria, col_num1, col_num2):
+    """
+    Genera scatter plots superpuestos de dos columnas numéricas, 
+    agrupados y coloreados según una columna categórica.
+
+    Args:
+    df (pd.DataFrame): DataFrame que contiene los datos.
+    col_categoria (str): Nombre de la columna categórica para agrupar y colorear los datos.
+    col_num1 (str): Nombre de la primera columna numérica para el eje X.
+    col_num2 (str): Nombre de la segunda columna numérica para el eje Y.
+    """
+    # Configuración para mejorar la estética del gráfico
+    sns.set(style="whitegrid")
+
+    plt.figure(figsize=(10, 8))
+
+    # Usar seaborn para generar los scatter plots agrupados y coloreados
+    sns.scatterplot(x=col_num1, y=col_num2, hue=col_categoria, data=df, palette="viridis")
+
+    # Añadir título y etiquetas
+    plt.title(f'Scatter Plots de {col_num1} vs {col_num2} Agrupados por {col_categoria}')
+    plt.xlabel(col_num1)
+    plt.ylabel(col_num2)
+
+    # Mostrar leyenda y gráfico
+    plt.legend(title=col_categoria)
+    plt.show()
+
+# Uso de la función
+# df es tu DataFrame
+# scatter_plots_agrupados(df, 'nombre_columna_categoria', 'nombre_columna_num1', 'nombre_columna_num2')
+
 
